@@ -3,8 +3,7 @@ An open-source development project for a cloud based university management softw
 
 This project was derived from Brandon Clark, Christie Phan and Hooman Rezvani [team graduate project](https://github.com/BClark-Grad-Project/CP546).
 
-#### Demo:
-https://um.themindcompany.net 
+*Demo* | https://um.themindcompany.net 
 
 
 # Getting Started

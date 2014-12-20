@@ -8,7 +8,7 @@ This project was written by Brandon Clark and Hooman Rezvani from a [project](ht
 
 
 # Getting Started
-#### Documentation
+### Documentation
 Documentation regarding the framework and development of this software can be found:
 
 * [Documentation](https://github.com/TheMindCompany/umanager/blob/master/docs/README.md)
@@ -16,21 +16,21 @@ Documentation regarding the framework and development of this software can be fo
 * [FAQ](https://github.com/TheMindCompany/umanager/blob/master/docs/faq.md)
 * [Issue Tracker](https://github.com/TheMindCompany/umanager/issues)
 
-#### Contribute
+### Contribute
 Please read through our [contributing guidelines](https://github.com/TheMindCompany/umanager/blob/master/docs/contribute.md). Included are directions for opening issues, coding standards, and notes on development.
 
 Moreover, if your pull request contains JavaScript patches or features, you must include relevant unit tests. All HTML and CSS should conform to the Code Guide, maintained in the `/doc` folder.
 
-#### Related Projects
-**UManager Charm** | [https://github.com/TheMindCompany/umanager-charm](https://github.com/TheMindCompany/umanager-charm)
-
-An Canonical OpenStack Juju Charm configuration for the UManager project.
+### Related Projects
+[UManager Charm](https://github.com/TheMindCompany/umanager-charm) | An Canonical OpenStack Juju Charm configuration for the UManager project.
 
 ### Base Components
-* User
+User
+*This is used to manage user account types and authentication data.*
   * Profile Types
   * Authentication
-* School
+School
+*This is used to manage school and course related data.*
   * Catalog
   * Campus
 

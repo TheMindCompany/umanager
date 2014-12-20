@@ -1,7 +1,7 @@
 # University Manager
 An open-source development project for a cloud based university management software system.  This projects goal is to create a component based structure that allows small and large universities to quickly extend and implement.  Design practices focus on mobile & special needs accessibility with scalability in place.
 
-**Demo** | https://um.themindcompany.net 
+*Demo* | https://um.themindcompany.net 
 
 #### Background
 This project was written by Brandon Clark and Hooman Rezvani from a [project](https://github.com/BClark-Grad-Project/CP546) developed while earning their Master in Software Engineering at *California State Fullerton*.

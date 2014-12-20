@@ -1,20 +1,41 @@
 # University Manager
-Students, teachers, and administrators in the academic sector who use the University Management System web application can accomplish the critical task associated to student registration for a university and their course enrollments. Our product is built for mobile device integration and cloud scalability with the latest interface design standards.
+An open-source development project for a cloud based university management software system.  This projects goal is to create a component based structure that allows small and large universities to quickly extend and implement.  Design practices focus on mobile & special needs accessibility with scalability in place.
+
+This project was derived from Brandon Clark, Christie Phan and Hooman Rezvani team graduate project at:
+
+https://github.com/BClark-Grad-Project/CP546
 
 #### Demo:
 https://um.themindcompany.net 
 
 #### Documentation
-Documentation regarding the framework and development of this software can be found in the local documentation folder.
-* [Install](https://github.com/TheMindCompany/umanager/docs/install.MD)
-* [Documentation](https://github.com/TheMindCompany/umanager/docs/README.MD)
-* [FAQ](https://github.com/TheMindCompany/umanager/docs/faq.MD)
+Documentation regarding the framework and development of this software can be found:
+
+* [Install](https://github.com/TheMindCompany/umanager/docs/install.md)
+* [Documentation](https://github.com/TheMindCompany/umanager/docs/README.md)
+* [FAQ](https://github.com/TheMindCompany/umanager/docs/faq.md)
 * [Issue Tracker](https://github.com/TheMindCompany/umanager/issues)
 
-#Use or Contribute
-Like what you see? Think you could use this software system or want to help contribute to the project to give it more university rich features?  The project has ended so we have moved to a new place to expand on it:
+#Contribute
 
-  UManager
-  --------
-  * Source | https://github.com/TheMindCompany/umanager
-  * Demo   | https://um.themindcompany.net
+
+#License
+Copyright (c) 2015 The Mind Company
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of 
+this software and associated documentation files (the "Software"), to deal in the 
+Software without restriction, including without limitation the rights to use, 
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the 
+Software, and to permit persons to whom the Software is furnished to do so, subject 
+to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+ INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+ PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
+ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 

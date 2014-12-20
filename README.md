@@ -23,14 +23,14 @@ Moreover, if your pull request contains JavaScript patches or features, you must
 
 #### Related Projects
 **UManager Charm** | [https://github.com/TheMindCompany/umanager-charm](https://github.com/TheMindCompany/umanager-charm)
+
 An Canonical OpenStack Juju Charm configuration for the UManager project.
 
 ### Base Components
-User
+* User
   * Profile Types
   * Authentication
-
-School
+* School
   * Catalog
   * Campus
 

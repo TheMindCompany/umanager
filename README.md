@@ -6,6 +6,8 @@ This project was derived from Brandon Clark, Christie Phan and Hooman Rezvani [t
 #### Demo:
 https://um.themindcompany.net 
 
+
+# Getting Started
 #### Documentation
 Documentation regarding the framework and development of this software can be found:
 
@@ -14,10 +16,12 @@ Documentation regarding the framework and development of this software can be fo
 * [FAQ](https://github.com/TheMindCompany/umanager/blob/master/docs/faq.md)
 * [Issue Tracker](https://github.com/TheMindCompany/umanager/issues)
 
-#Contribute
+####Contribute
+Please read through our [contributing guidelines](https://github.com/TheMindCompany/umanager/docs/blob/master/contribute.md). Included are directions for opening issues, coding standards, and notes on development.
 
+Moreover, if your pull request contains JavaScript patches or features, you must include relevant unit tests. All HTML and CSS should conform to the Code Guide, maintained in the `/doc` folder.
 
-#License
+#MIT License
 Copyright (c) 2015 The Mind Company
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 

@@ -1,0 +1,45 @@
+// Begin Jade template.
+extends layout
+- historyhistory = typeof(history) != 'undefined' ?  : { }
+  
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+        h3 Student Profile: #{history.courses[0].user.first} #{history.courses[0].user.last} ( #{history.courses[0].user.id} )
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        p 
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        for n in history.sessions
+              small
+                b #{n.description} - #{n.code}
+              hr
+              .row
+                for j in history.courses
+                  if j.session.code == n.code
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:5px 18px 5px 18px; margin-top:0px;')
+                      .col-xs-3.col-sm-3.col-md-2.col-lg-2
+                        small.pull-right 
+                          b #{j.course.code}
+                      .col-xs-5.col-sm-5.col-md-7.col-lg-7.center
+                        small #{j.course.name}
+                      if user.type == 'student'
+                        .col-xs-3.col-sm-3.col-md-2.col-lg-2.center
+                          small #{j.course.type}
+                      else
+                        .col-xs-4.col-sm-4.col-md-3.col-lg-3.center
+                          small #{j.course.type}                            
+                      if user.type == 'student'
+                        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                          small.pull-left #{j.course.units}
+              .row
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                  br
+                  br
+// End Jade Template

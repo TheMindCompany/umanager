@@ -1,0 +1,69 @@
+// Begin Jade template.
+extends layout
+- course = typeof(course) != 'undefined' ? course : { }
+block nav
+    li
+      a(data-toggle='collapse',data-parent="#accordion",data-target='#schedule', href='#schedule') Add schedule
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 Add Course Schedule
+        p CLick on the Add Schedule below to assign a schedule to the cources registered
+        br
+        #accordion.panel-group
+          .panel.panel-default
+            .panel-heading
+              h2.panel-title
+                a(data-toggle="collapse", data-parent="#accordion", href="#schedule")
+                  | Add Schedule 
+            #schedule.panel-collapse.collapse
+              .panel-body
+                form(role='form', method='POST', action='/catalog', id='register-form') 
+                  //h3 Course information
+                  .row
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon Course Name
+                        input.form-control(name='section', placeholder='', type='input', required)
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon Prof. Name
+                        input.form-control(name='Prof Name', placeholder='', type='input', required)
+                  br      
+                  .row
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon Student.Length
+                        input.form-control(name='seatsTaken', placeholder='', type='number', required)
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon Room Number
+                        input.form-control(name='Room number', placeholder='', type='number', required)
+                  br        
+                  .row
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon Seats Available
+                        input.form-control(name='seats', placeholder='', type='number', required)
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon Week Days
+                        input.form-control(name='dailyMeeting', placeholder='', type='input', required)
+                  br
+                  .row      
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon time
+                        input.form-control(name='startTime', placeholder='**:**am/pm to **:**am/pm', type='number', required)
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      .input-group
+                        .input-group-addon duration
+                        input.form-control(name='length', placeholder='', type='number', required)     
+                  br  
+                  button.btn.btn-lg.btn-primary.pull-left.disabled(type='submit') Add  
+                    
+                    
+           
+// End Jade Template

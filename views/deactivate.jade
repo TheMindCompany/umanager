@@ -1,0 +1,19 @@
+// Begin Jade template.
+extends layout
+- userpool = typeof(userpool) != 'undefined' ? userpool : { }
+
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  
+//-Add navigation item to existing navigation set.
+block nav
+ 
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 De-Activate User Confirmation
+
+// End Jade Template

@@ -1,0 +1,235 @@
+// Begin Jade template.
+extends layout
+
+//-CSS is inserted in the HEAD tag.
+block css
+  link(rel='stylesheet', href='/css/register-form.css')
+  
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/register-form.js')
+    
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12      
+        .panel.panel-default
+          .panel-heading
+            h4.panel-title
+              | Apply for #{school.register.description} 
+          .panel-body
+            form(role='form', method='POST', action='/credentials/create', id='register-form')
+              h3 Applicant
+              .input-group
+                .input-group-addon First Name
+                input.form-control(name='first_user', placeholder='', type='input', autofocus, required)
+              br
+              .input-group
+                .input-group-addon Last Name
+                input.form-control(name='last_user', placeholder='', type='input', required)
+              br
+              h4 Gender
+              .input-group.col-xs-6.col-sm-5.col-md-4.col-lg-3
+                .input-group-addon Sex  
+                select.form-control(name='gender_user', placeholder='', type='input', required)
+                  option(value='decline') Decline
+                  option(value='male') Male
+                  option(value='female') Female
+              h4 Age
+              .input-group.col-xs-2.col-sm-2.col-md-2.col-lg-2
+                .input-group-addon Birth
+                input.form-control(name='birth_user', placeholder='', type='Date', required)
+              br
+              h3 Contact
+              .input-group
+                .input-group-addon Phone
+                input.form-control(name='phone_user', placeholder='', type='tel', required)
+              br 
+              .input-group
+                .input-group-addon Email  
+                input.form-control(name='email_user', placeholder='', type='email', required)
+              br                  
+              h3 Permenent Address
+              .input-group
+                .input-group-addon Address 
+                input.form-control(name='addr_user', placeholder='', type='input', required)
+              br
+              .input-group
+                .input-group-addon Address 
+                input.form-control(name='addr2_user', placeholder='', type='input')
+              br
+              .input-group
+                .input-group-addon Country  
+                select.form-control(name='country_user', placeholder='', type='input', required)
+                  option(value='USA') United States of America
+                  option(value='INDIA') India
+                  option(value='SKOREA') South Korea
+                  option(value='JAPAN') Japan
+                  option(value='CHINA') China Province
+                  option(value='IRAN') Iran Province
+              br
+              .row
+                .col-xs-8.col-sm-8.col-md-8.col-lg-8
+                  .input-group
+                    .input-group-addon State  
+                    select.form-control(name='state_user', placeholder='', type='input', required)
+                      option 
+                      option(value='AL') AL
+                      option(value='AK') AK
+                      option(value='AZ') AZ
+                      option(value='AR') AR
+                      option(value='CA') CA
+                      option(value='CO') CO
+                      option(value='CT') CT
+                      option(value='DE') DE
+                      option(value='DC') DC
+                      option(value='FL') FL
+                      option(value='GA') GA
+                      option(value='HI') HI
+                      option(value='ID') ID
+                      option(value='IL') IL
+                      option(value='IN') IN
+                      option(value='IA') IA
+                      option(value='KS') KS
+                      option(value='KY') KY
+                      option(value='LA') LA
+                      option(value='ME') ME
+                      option(value='MD') MD
+                      option(value='MA') MA
+                      option(value='MI') MI
+                      option(value='MN') MN
+                      option(value='MS') MS
+                      option(value='MO') MO
+                      option(value='MT') MT
+                      option(value='NE') NE
+                      option(value='NV') NV
+                      option(value='NH') NH
+                      option(value='NJ') NJ
+                      option(value='NM') NM
+                      option(value='NY') NY
+                      option(value='NC') NC
+                      option(value='ND') ND
+                      option(value='OH') OH
+                      option(value='OK') OK
+                      option(value='OR') OR
+                      option(value='PA') PA
+                      option(value='RI') RI
+                      option(value='SC') SC
+                      option(value='SD') SD
+                      option(value='TN') TN
+                      option(value='TX') TX
+                      option(value='UT') UT
+                      option(value='VT') VT
+                      option(value='VA') VA
+                      option(value='WA') WA
+                      option(value='WV') WV
+                      option(value='WI') WI
+                      option(value='WY') WY                    
+                .col-xs-4.col-sm-4.col-md-4.col-lg-4
+                  .input-group
+                    .input-group-addon Zip
+                    input.form-control(name='zip_user', placeholder='', type='input', required)
+              br
+              h3 General Education Transcript
+              p Please provide information about your High School or GED information for your graduating institution.  If you are not sending transcripts from other universities you will need to send offical proof of High School Diploma or GED. 
+              .row
+                .col-xs-8.col-sm-8.col-md-8.col-lg-8
+                  .input-group
+                    .input-group-addon School Name
+                    input.form-control(name='school_general', placeholder='', type='input', required)
+                .col-xs-4.col-sm-4.col-md-4.col-lg-4
+                  .input-group
+                    .input-group-addon GPA 
+                    input.form-control(name='gpa_general', placeholder='', type='input', required)
+              br
+              .row
+                .col-xs-8.col-sm-8.col-md-8.col-lg-8
+                  .input-group
+                    .input-group-addon City
+                    input.form-control(name='city_general', placeholder='', type='input', required)
+                .col-xs-4.col-sm-4.col-md-4.col-lg-4
+                  .input-group
+                    .input-group-addon State 
+                    select.form-control(name='state_general', placeholder='', type='input', required)
+                      option 
+                      option(value='AL') AL
+                      option(value='AK') AK
+                      option(value='AZ') AZ
+                      option(value='AR') AR
+                      option(value='CA') CA
+                      option(value='CO') CO
+                      option(value='CT') CT
+                      option(value='DE') DE
+                      option(value='DC') DC
+                      option(value='FL') FL
+                      option(value='GA') GA
+                      option(value='HI') HI
+                      option(value='ID') ID
+                      option(value='IL') IL
+                      option(value='IN') IN
+                      option(value='IA') IA
+                      option(value='KS') KS
+                      option(value='KY') KY
+                      option(value='LA') LA
+                      option(value='ME') ME
+                      option(value='MD') MD
+                      option(value='MA') MA
+                      option(value='MI') MI
+                      option(value='MN') MN
+                      option(value='MS') MS
+                      option(value='MO') MO
+                      option(value='MT') MT
+                      option(value='NE') NE
+                      option(value='NV') NV
+                      option(value='NH') NH
+                      option(value='NJ') NJ
+                      option(value='NM') NM
+                      option(value='NY') NY
+                      option(value='NC') NC
+                      option(value='ND') ND
+                      option(value='OH') OH
+                      option(value='OK') OK
+                      option(value='OR') OR
+                      option(value='PA') PA
+                      option(value='RI') RI
+                      option(value='SC') SC
+                      option(value='SD') SD
+                      option(value='TN') TN
+                      option(value='TX') TX
+                      option(value='UT') UT
+                      option(value='VT') VT
+                      option(value='VA') VA
+                      option(value='WA') WA
+                      option(value='WV') WV
+                      option(value='WI') WI
+                      option(value='WY') WY                    
+              br
+              h3 Higher Education Transcripts
+              p Please provide any information you can about your previous college experience.  Official transcripts need to be recieved three months prior to the begining of the Fall 2014 session.
+              br
+              button#add-transcript.btn.btn-warning.btn-xs(type='button', data-loading-text='Adding Record...') 
+                | + Add Transcript
+              br
+              br
+              #college-transcripts
+                - var pos = 0;
+                script(type='text/javascript').
+                  var pos = !{JSON.stringify(pos)}
+                input.form-control(name='transcript_college_record_number', value='1', type='hidden')
+                .row 
+              hr
+              h5 Please create a secure password:
+              .row
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12     
+                  .col-xs-6.col-sm-6.col-md-6.col-lg-6 
+                    .input-group
+                      .input-group-addon Password 
+                      input.form-control(name='pass', type='password', required)
+                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                    .input-group
+                      .input-group-addon Re-Type
+                      input.form-control(name='pass_2', type='password', required)
+              br
+              button#submit-application.btn.btn-lg.btn-warning.pull-right(type='submit',data-loading-text='Sending Application...') Send Application Now!

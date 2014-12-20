@@ -1,0 +1,129 @@
+// Begin Jade template.
+extends layout
+- catalog = typeof(catalog) != 'undefined' ? catalog : { }
+
+//-CSS is inserted in the HEAD tag.
+block css
+link(rel='stylesheet',href='/css/mycss.css')
+
+  
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/catalog.js')
+
+//-Add navigation item to existing navigation set.
+block nav
+  
+//-Add navigation item to existing Administrator navigation set.
+block navAdmin
+  
+//-Add navigation item to existing Teacher navigation set.
+block navTeacher
+  
+//-Add navigation item to existing Student navigation set.
+block navStudent
+  
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+        h3 View the Courses by Sessions (Semesters)
+        p The catalog displays courses by sessions. Please click on each sessions in order to view the courses. 
+          | Click the expand button in order to expand the listing of the courses.
+     // start grid for images 
+     br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    br
+    // show schedule 
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h3 #{catalog.description}
+        h4 #{monthNames[catalog.start.getMonth()]}  #{catalog.start.getFullYear()} - #{monthNames[catalog.stop.getMonth()]} #{catalog.stop.getFullYear()}
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        #accordion.panel-group
+          form(role='form', method='POST', action='/student/add', name='catalog')
+            input(type='hidden', value='', name='grab')
+            for n in catalog.subjects
+              .panel.panel-default
+                .panel-heading
+                  h2.panel-title
+                    a(data-toggle="collapse", data-parent="#accordion", href="#" + n.code)
+                      h5 (#{n.code}) #{n.name}
+                .panel-collapse.collapse(id=n.code)
+                  .panel-body
+                    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                      b CODE
+                    .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                      b TYPES
+                    .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                      b DAYS
+                    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                      b TIME
+                    .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                      b OPEN SEATS
+                    .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                      b LOC
+                    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                      b INST
+                    if user.type == 'student'
+                      .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                        b Add
+                    if user.type == 'student'
+                      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                        b 
+                    else
+                      .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                        b 
+                    .row
+                      for j in catalog.schedule
+                        if j.course.subject.code == n.code
+                          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                            .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                              p #{j.course.subject.code}-#{j.course.code}
+                            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                              p SEM
+                            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                              //-This is not working correctly
+                              - var daily = ''
+                              if j.daily.mon == true
+                                - var mon = 'M '
+                              if j.daily.tue == true
+                                - var tue = 'T '
+                              if j.daily.wed == true
+                                - var wed = 'W '
+                              if j.daily.thurs == true
+                                - var thurs = 'Th '
+                              if j.daily.fri == true
+                                - var fri = 'F '
+                              if j.daily.sat == true
+                                - var sat = 'S '
+                              if j.daily.sun == true
+                                - var sun = 'Sun '
+                              p #{mon} #{tue} #{wed} #{thurs} #{fri} #{sat} #{sun}
+                            .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                              p #{j.start_time.getHours()} 
+                                if j.start_time.getMinutes() != 0
+                                  | : #{j.start_time.getMinutes()}
+                            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                              p #{j.seats}
+                            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                              p #{j.location}
+                            .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                              p #{j.instructor.first.charAt(0)}. #{j.instructor.last}
+                            if user.type == 'student'
+                              .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                                button.dropBtn.btn.btn-xs.btn-primary(type='button', value=j.id) Add
+                            if user.type == 'student'
+                              .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                                p #{j.course.requirements}
+                            else
+                              .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                                p #{j.course.requirements}
+
+// End Jade Template

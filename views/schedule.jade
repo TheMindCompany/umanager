@@ -1,0 +1,217 @@
+// Begin Jade template.
+extends layout
+- schedule = typeof(schedule) != 'undefined' ? schedule : { }
+
+//-CSS is inserted in the HEAD tag.
+block css
+  link(href='/css/schedule.css')
+  
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/myschedule.js')
+  script(type='text/javascript').
+    var schedule = !{JSON.stringify(schedule)};
+    var pending = !{JSON.stringify(pending)};
+    var current;
+    
+//-HTML content to display.
+block content
+  - var currentClassList;
+  #student-list.modal.fade(tabindex="-1", role="dialog", aria-labelledby="teach-class-list-title", aria-hidden="true")
+    form(role='form', method='POST', name='teach-class-list')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type="button", data-dismiss="modal")
+              span(aria-hidden="true")
+                | &times;
+                span.sr-only Close
+            h4#student-list-title.modal-title -Class Code- -Class Name-
+          .modal-body
+            input.grab(type='hidden', name='grab')
+            select.form-control(name='teach-class-list', multiple, size='10')
+              option None
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") Close
+            button.dropListBtn.btn.btn-warning(type="button") Drop Student
+            button.viewHistoryListBtn.btn.btn-warning(type="button") View Class History
+  section#main.container
+    if schedule.length
+      .row
+        //-Columns in a row must equal 12. 
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h1 #{title}
+          h4 #{schedule[0].session.description} (#{schedule[0].session.code}) 
+          p #{user.first} #{user.last} (#{user.id}) 
+      br
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          if user.type == 'teacher'
+            .col-xs-2.col-sm-2.col-md-1.col-lg-2.hide-sm
+              b Course
+          else
+            .col-xs-2.col-sm-2.col-md-1.col-lg-1
+              b Course
+          if user.type == 'student'
+            .col-xs-0.col-sm-0.col-md-3.col-lg-3.hide-md
+              b Name
+          if(user.type =='student' || user.type == 'admin')
+            .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm
+              b Types
+          else
+            .col-xs-4.col-sm-3.col-md-4.col-lg-4
+              b Name
+          .col-xs-2.col-sm-1.col-md-1.col-lg-1
+            b Days
+          .col-xs-2.col-sm-3.col-md-2.col-lg-2
+            b Time
+          if user.type == 'teacher'
+            .col-xs-2.col-sm-2.col-md-2.col-lg-1
+              b Location
+          else
+            .col-xs-2.col-sm-2.col-md-1.col-lg-1
+              b Location
+          if(user.type =='student' || user.type == 'admin')
+            .col-xs-2.col-sm-2.col-md-2.col-lg-2
+              b Instructor
+          .col-xs-1.col-sm-1.col-md-1.col-lg-1
+            b 
+        br
+        hr
+      - var j = 0;
+      for i in schedule
+        .row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            if user.type == 'teacher'
+              .col-xs-2.col-sm-2.col-md-1.col-lg-2.hide-sm
+                small #{i.course.code}
+            else
+              .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                small #{i.course.code}
+            if user.type == 'student'
+              .col-xs-0.col-sm-0.col-md-3.col-lg-3.hide-md
+                small #{i.course.name}
+            if(user.type =='student' || user.type == 'admin')
+              .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm
+                small #{i.course.type}
+            else
+              .col-xs-4.col-sm-3.col-md-4.col-lg-4
+                small #{i.course.name}
+            .col-xs-2.col-sm-1.col-md-1.col-lg-1
+              small #{getDays(i.schedule.daily)}
+            .col-xs-2.col-sm-3.col-md-2.col-lg-2
+              small
+                +timeFrame(i.schedule.start_time, i.schedule.min_length)
+            if user.type == 'teacher'
+              .col-xs-2.col-sm-2.col-md-2.col-lg-1
+                small #{i.schedule.location}
+            else
+              .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                small #{i.schedule.location}
+            if(user.type =='student' || user.type == 'admin')
+              .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                small #{i.course.instructor.first.charAt(0)}. #{i.course.instructor.last} 
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+              if user.type == 'student'
+                button.dropBtn.btn.btn-xs.btn-warning(type='button', value=i.id) Drop Course
+              else if user.type == 'teacher'
+                button.studentsBtn.btn.btn-xs.btn-warning(value=j, type='button',data-toggle="modal", data-target="#student-list") Student Roll
+                - j++;
+        br
+    else
+      .row
+        //-Columns in a row must equal 12. 
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.center
+          br
+          br
+          br
+          if user.type == 'student'
+            small.center You are not registered for any courses this class session.  Begin 
+            a(href='/catalog') adding courses
+            | &nbsp;today!
+          else
+            small You are not registered for any courses this class session.  
+    if pending.length 
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          br
+          br
+          h4 #{school.register.description} Reservations
+          br
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            if user.type == 'teacher'
+              .col-xs-2.col-sm-2.col-md-1.col-lg-2.hide-sm
+                b Course
+            else
+              .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                b Course
+            if user.type == 'student'
+              .col-xs-0.col-sm-0.col-md-3.col-lg-3.hide-md
+                b Name
+            if(user.type =='student' || user.type == 'admin')
+              .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm
+                b Types
+            else
+              .col-xs-4.col-sm-3.col-md-4.col-lg-4
+                b Name
+            .col-xs-2.col-sm-1.col-md-1.col-lg-1
+              b Days
+            .col-xs-2.col-sm-3.col-md-2.col-lg-2
+              b Time
+            if user.type == 'teacher'
+              .col-xs-2.col-sm-2.col-md-2.col-lg-1
+                b Location
+            else
+              .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                b Location
+            if(user.type =='student' || user.type == 'admin')
+              .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                b Instructor
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+              b 
+          br
+          hr
+      - var k = 0;
+      for i in pending
+        .row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top:10px;padding-bottom:10px;')
+              if user.type == 'teacher'
+                .col-xs-2.col-sm-2.col-md-1.col-lg-2.hide-sm
+                  small #{i.course.code}
+              else
+                .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                  small #{i.course.code}
+              if user.type == 'student'
+                .col-xs-0.col-sm-0.col-md-3.col-lg-3.hide-md
+                  small #{i.course.name}
+              if(user.type =='student' || user.type == 'admin')
+                .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm
+                  small #{i.course.type}
+              else
+                .col-xs-4.col-sm-3.col-md-4.col-lg-4
+                  small #{i.course.name}
+              .col-xs-2.col-sm-1.col-md-1.col-lg-1
+                small #{getDays(i.schedule.daily)}
+              .col-xs-2.col-sm-3.col-md-2.col-lg-2
+                small
+                  +timeFrame(i.schedule.start_time, i.schedule.min_length)
+              if user.type == 'teacher'
+                .col-xs-2.col-sm-2.col-md-2.col-lg-1
+                  small #{i.schedule.location}
+              else
+                .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                  small #{i.schedule.location}
+              if(user.type =='student' || user.type == 'admin')
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  small #{i.course.instructor.first.charAt(0)}. #{i.course.instructor.last} 
+              .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                if user.type == 'student'
+                  button.dropBtn.btn.btn-xs.btn-warning(type='button', value=i.id) Drop Course
+                else if user.type == 'teacher'
+                  button.studentsPendingBtn.btn.btn-xs.btn-warning(value=k, type='button',data-toggle="modal", data-target="#student-list") Student's Enrolled
+                  - k++;
+          br
+      
+// End Jade Template

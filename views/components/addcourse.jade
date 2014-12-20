@@ -1,0 +1,78 @@
+// Begin Jade template.
+extends layout
+- subjects = typeof(subjects) != 'undefined' ? subjects : { }
+
+//-CSS is inserted in the HEAD tag.
+block css
+  
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/add-course.js')
+  
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+        h3 Admin Only
+        p note:should only be viewed by Admin
+        br
+        .row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            form(role='form', method='POST', action='/catalog', id='register-form')
+              h3 Add Course
+              .row
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Course Name
+                    input.form-control(name='course.name', placeholder='', type='input', required)
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Section
+                    input.form-control(name='schedule.section', placeholder='', type='number', required)
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-btn
+                      button#subjects-lbl.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown') 
+                        | Subject 
+                        span.caret
+                      ul#subjects.dropdown-menu(role='menu', aria-labelledby='subjects-lbl')
+                        for subject in subjects
+                          li(role='presentation')
+                            a(role='menuitem', tabindex='-1') #{subject.code}
+                    input#subject.form-control(name='subject', placeholder='', type='input')
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Types
+                    input.form-control(name='course_type', placeholder='', type='input', required)
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Days
+                    input.form-control(name='daily', placeholder='', type='input', required)
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Time
+                    input.form-control(name='time', placeholder='', type='input', required)
+              br
+              .row
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Open Seats
+                    input.form-control(name='seats', placeholder='', type='number', required)
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Location
+                    input.form-control(name='location', placeholder='', type='input', required)
+                .col-xs-2.col-sm-2.col-md-2.col-lg-2
+                  .input-group
+                    .input-group-addon Instructor
+                    input.form-control(name='instructor', placeholder='', type='input', required) 
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  .input-group
+                    .input-group-addon Comments
+                    input.form-control(name='comments', placeholder='', type='input', required)
+              br
+              button.btn.btn-lg.btn-primary.pull-right.disabled(type='submit') Add
+// End Jade Template

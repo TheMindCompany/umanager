@@ -1,0 +1,126 @@
+// Begin Jade template.
+extends layout
+
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        +FeaturesAd() 
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        br
+        br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.panel.panel-default
+          .panel-body(style='padding-bottom:0px;')
+            .col-xs-12.col-sm-9.col-md-9.col-lg-9
+              .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                .col-xs-12.col-sm-12.col-md-7.col-lg-7
+                  h4 Software Description
+                  small Students, teachers, and administrators in the academic sector who use the University Management System web application can accomplish the critical task associated to student registration for a university and their course enrollments. Our product is built for mobile device integration and cloud scalability with the latest interface design standards.
+                  br
+
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h2#try Try or Contribute!
+        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+          h4 Register and Try
+          i Apply to university, add & drop courses, view catalogs & schedules, approve & decline applications and more!
+          br
+          br
+          small The below profiles access features with the password 
+            b newaccount 
+              | :
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top:10px;')
+              small 
+                b Student &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;| 
+                | &nbsp; &nbsp; student@localhost
+              br
+              small
+                b Teacher &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | 
+                | &nbsp; &nbsp; teach@localhost
+              br
+              small 
+                b Administrator &nbsp; &nbsp; &nbsp; | 
+                | &nbsp; &nbsp; admin@localhost
+              br
+              br
+              br
+        .col-xs-12.col-sm-6.col-md-6.col-lg-6
+          h4 Help make things better!
+          i The project has ended and gone to the open-source community on 
+            a(href='https://github.com/TheMindCompany/umanager') Github
+          |.  
+          br
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top:10px;')
+            small
+              b(style='text-indent:10px') Issue Tracker 
+              | | 
+              a(href='https://github.com/TheMindCompany/umanager/issues') https://github.com/TheMindCompany/umanager/issues
+            br
+            br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h2#technical Technical Information
+          h4 Front End Details
+          .col-xs-12.col-sm-6.col-md-6.col-lg-3
+            h5 
+              b Language
+            ul.col-xs-12.col-sm-12.col-md-12.col-lg-12
+              li HTML5 with Jade Template Engine
+              li CSS
+              li JavaScript
+          .col-xs-12.col-sm-6.col-md-6.col-lg-9
+            h5 
+              b Libraries
+            ul.col-xs-12.col-sm-12.col-md-12.col-lg-12
+              li jQuery ~2.1.1
+              li Bootstrap ~3.3.1
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h4 Back End Details
+          .col-xs-12.col-sm-6.col-md-6.col-lg-3
+            h5 
+              b Machine & OS
+            ul.list-unstyled
+              li Disk Space 100MB             
+              li Memory 5GB
+              li Linux 
+              li Mac 
+          .col-xs-12.col-sm-6.col-md-6.col-lg-3
+            h5 
+              b Software
+            ul.list-unstyled
+              li MongoDB
+              li Node.js
+              li Juju 
+            br
+          .col-xs-12.col-sm-6.col-md-6.col-lg-3
+            h5 
+              b Language
+            ul.list-unstyled
+              li JavaScript 
+              li Bash Script 
+              li Python 
+          .col-xs-12.col-sm-6.col-md-6.col-lg-3
+            h5 
+              b Frameworks
+            ul.list-unstyled
+              li Node.js 
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                  ul
+                    li Express 4.x
+                    li Mongoose 3.8
+                    li BCrypt 0.8
+                    li Node-UUID 1.4
+                    li Jade 1.6                  
+              li Juju 
+// End Jade Template

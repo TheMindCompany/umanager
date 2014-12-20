@@ -1,0 +1,37 @@
+// Begin Jade template.
+extends layout
+
+include ./mixins/manage-application.jade
+
+block css
+  link(rel='stylesheet', href='/css/manage-application.css')
+  
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/manage-application.js')
+  script(type='text/javascript').
+    var data = !{JSON.stringify(applicants)}
+
+//-HTML content to display.
+block content
+  - applicants = typeof(applicants) != 'undefined' ? applicants : { }
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 Review Student Applications
+        br
+        #accordion.panel-group
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
+                  | Approve Student Registration
+            if applicants.length
+              +appManager()
+            else
+              .panel-body
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                  small There are currently no applications to approve.
+
+// End Jade Template

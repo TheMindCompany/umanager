@@ -1,0 +1,53 @@
+include ../mixins/navigation.jade
+- user = typeof(user) != 'undefined' ? user : { first: 'Guest',	last: 'User', type: 'default' }
+- school = typeof(school) != 'undefined' ? school : { }
+- var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+- function getDays(obj){var days = '';if (obj.mon == true) days += 'M ';if (obj.tue == true) days += 'T ';if (obj.wed == true) days += 'W ';if (obj.thur == true) days += 'Th '; if (obj.fri == true) days += 'F ';if (obj.sat == true) days += 'S ';if (obj.sun == trrue) days += 'Sun ';return days;};
+
+nav.navbar.navbar-default(role='navigation')
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed.btn-xs(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+        span.sr-only Toggle navigation
+        span.glyphicon.glyphicon-th-list
+      a.navbar-brand(href='/') 
+        font(color='#cd610a')
+          b University
+        font(color='black')
+          b Manager
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        if school.register.active
+          li
+            a(href='/catalog') 
+              span.glyphicon.glyphicon-book &nbsp;
+              | #{school.register.description} Catalog 
+        block nav
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown') 
+            | #{user.first} #{user.last} &nbsp;
+            span.glyphicon.glyphicon-user 
+            span.caret
+          ul.dropdown-menu(role='menu')
+            if(user.type == 'admin')
+              +adminNav()
+              li.divider
+              +navItem('/credentials/signout','Sign Out')
+            else if (user.type == 'teacher')
+              +teacherNav()
+              li.divider
+              +navItem('/credentials/signout','Sign Out')
+            else if (user.type == 'student')
+              +studentNav()
+              li.divider
+              +navItem('/credentials/signout','Sign Out')
+            else if (user.type == 'applicant')
+              +applicantNav()
+              li.divider
+              +navItem('/credentials/signout','Sign Out')
+            else
+              +navItem('/credentials/register', 'Apply Today!')
+              li.divider
+              li 
+                +signIn()

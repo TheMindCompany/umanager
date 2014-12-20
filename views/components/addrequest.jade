@@ -1,0 +1,106 @@
+// Begin Jade template.
+extends layout
+- schedule = typeof(schedule) != 'undefined' ? schedule : { }
+
+//-CSS is inserted in the HEAD tag.
+block css
+link(rel='stylesheet',href='/css/mycss.css') 
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/schedule.js')
+//-Add navigation item to existing navigation set.
+block nav
+  
+//-Add navigation item to existing Student navigation set.
+block navStudent
+  
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+        p Welcome #{user.first}
+        h3 Added Courses Summary
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12  
+        h3 #{schedule.session} 
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          b Code
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b TYPES
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b DAYS
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b TIME
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b SEAT
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          b LOC
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b INST
+        
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p CIS-010
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p SEM
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p T
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 3:00
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 32
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p IT013
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p C.Teacher
+        
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p CIS-110
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p SEM
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p T-F
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 4:30
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 32
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p IT011
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p C.Teacher
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p MIS-110
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p SEM
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p M
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 1:00
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 30
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p IT011
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p C.Teacher
+    br 
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-3.col-sm-3.col-md-3.col-lg-3
+          button.btn.btn-lg.btn-primary.pull-left.primary(type='button') Confirm
+          
+// End Jade Template

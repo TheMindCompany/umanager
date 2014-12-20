@@ -1,0 +1,70 @@
+mixin statNumber(heading, val)
+  .user-stat-item.col-xs-6.col-sm-4.col-md-4.col-lg-4
+    .panel.panel-default
+      h6 
+        b #{heading}
+      .user-stat-number
+        p #{val}
+      
+mixin userStatistics()
+  h2 User Statistics
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    hr
+  +statNumber('Total Accounts', 0) 
+  +statNumber('Online Now', 0)
+  +statNumber('Recently Online (24 Hour)', 0)
+  +statNumber('Recently Online (7 Day)', 0)
+  +statNumber('Recently Online (30 Hour)', 0)
+  +statNumber('Recently Online (Year)', 0)
+  
+mixin userAuthFields()
+  .col-xs-12.col-sm-12.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Id &nbsp; &nbsp; &nbsp; 
+      input.form-control(name='userId', type='input')
+    br
+  .col-xs-12.col-sm-12.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Email
+      input.form-control(name='email', type='input')
+    br
+  
+mixin userNameFields()
+  .col-xs-12.col-sm-12.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon First &nbsp; &nbsp; 
+      input.form-control(name='first', type='input')
+    br
+  .col-xs-12.col-sm-12.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Middle
+      input.form-control(name='middle', type='input')
+    br
+  .col-xs-12.col-sm-12.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Last &nbsp; &nbsp; 
+      input.form-control(name='last', type='input')
+    br
+  
+
+mixin findButtons()
+  button.btn.btn-primary.btn-lg.pull-right(type='submit') Search
+  button.btn.btn-default.btn-lg.pull-right(type='reset', style='margin-right: 10px;') Clear 
+  
+mixin findUser()
+  .panel.panel-default
+    .panel-body(role='tabpanel')
+      form#user-search-form(role='form', method='POST', action='/account/search')
+        ul.nav.nav-tabs(role='tablist')
+          li.active(role='presentation')
+            a(href='#profile-by-auth', aria-controls='Authentication', role='tab', data-toggle='tab')  Search for account.
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+        .tab-content
+          #profile-by-auth.tab-pane.fade.in.active(role='tabpanel')
+            +userAuthFields()
+          #profile-by-name.tab-pane.fade(role='tabpanel')
+            +userNameFields()
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          +findButtons()
+          

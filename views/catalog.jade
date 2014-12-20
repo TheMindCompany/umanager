@@ -1,0 +1,97 @@
+// Begin Jade template.
+extends layout
+- catalog = typeof(catalog) != 'undefined' ? catalog : { }
+  
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/catalog.js')  
+  
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        if user.type == 'guest'
+          p 
+            a(href='/credentials/register') Apply 
+            | for the #{catalog.description} today.  Already registered, 
+            +signIn() 
+            |  to begin adding courses.
+    br
+    // show schedule 
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h3 #{catalog.description}
+        h4 #{monthNames[catalog.start.getMonth()]}  #{catalog.start.getFullYear()} - #{monthNames[catalog.stop.getMonth()]} #{catalog.stop.getFullYear()}
+        small Click the subject to expand or collapse course offerings.
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        #accordion.panel-group
+          form(role='form', method='POST', action='/student/add', name='catalog')
+            input(type='hidden', value='', name='grab')
+            for n in catalog.subjects
+              .panel.panel-default
+                .panel-heading
+                  h2.panel-title
+                    a(data-toggle="collapse", data-parent="#accordion", href="#" + n.code)
+                      h5 #{n.name} (#{n.code})
+                .panel-collapse.collapse.fade.in(id=n.code)
+                  .panel-body
+                    .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                      b Code
+                    if user.type == 'student'
+                      .col-xs-4.col-sm-3.col-md-4.col-lg-4
+                        b Course
+                    else
+                      .col-xs-5.col-sm-4.col-md-5.col-lg-5
+                        b Course
+                    .col-xs-2.col-sm-1.col-md-1.col-lg-1
+                      b Days
+                    .col-xs-2.col-sm-3.col-md-2.col-lg-2
+                      b Time
+                    .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm.center
+                      b Seats
+                    .col-xs-0.col-sm-0.col-md-2.col-lg-2.hide-md
+                      b Instructor
+                    .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                      b 
+                    br
+                    hr
+                    .row
+                      for j in catalog.schedule
+                        if j.course.subject.code == n.code
+                          - var remaining = j.seats - j.registered;
+                          .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:5px 18px 5px 18px; margin-top:0px;')
+                            .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                              small #{j.course.subject.code}-#{j.course.code}
+                            if user.type == 'student'
+                              .col-xs-4.col-sm-3.col-md-4.col-lg-4
+                                small #{j.course.name}
+                            else
+                              .col-xs-5.col-sm-4.col-md-5.col-lg-5
+                                small #{j.course.name}
+                            .col-xs-2.col-sm-1.col-md-1.col-lg-1
+                              small #{getDays(j.daily)}
+                            .col-xs-2.col-sm-3.col-md-2.col-lg-2
+                              small
+                                +timeFrame(j.start_time, j.min_length)
+                            .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm.center                              
+                              if remaining <= 0
+                                small FULL
+                              else
+                                small #{j.seats - j.registered}
+                            .col-xs-0.col-sm-0.col-md-2.col-lg-2.hide-md
+                              small #{j.instructor.first.charAt(0)}. #{j.instructor.last}
+                            if user.type == 'student'
+                              .col-xs-2.col-sm-2.col-md-1.col-lg-1
+                                if remaining > 0
+                                  button.dropBtn.btn.btn-xs.btn-warning.pull-right(type='button', value=j.id) Add Course
+                                else
+                                  button.dropBtn.btn.btn-xs.btn-warning.pull-right.disabled(type='button', value=j.id) Add Course
+              br
+// End Jade Template

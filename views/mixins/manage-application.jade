@@ -1,0 +1,48 @@
+mixin appManager()
+  #collapseTwo.panel-collapse.collapse.fade.in
+    .panel-body
+      form(role='form', method='POST', id='approve-register-form', name='approve-register-form')
+        .row
+          .col-xs-12.col-sm-12.col-md-6.col-lg-6
+            h4 Approvals
+            br
+            select.form-control#userlist(multiple, size='28', style='height: 100%;')
+              - var j = 0;
+              for n in applicants
+                // tmp for populated college history students.
+                option(value=j) #{n.first} #{n.last}
+                - j++; 
+            br
+          .col-xs-12.col-sm-12.col-md-6.col-lg-6
+            input#userid.form-control(type='hidden', name='id')
+            input#userid.form-control(type='hidden', name='approval')
+            h4 Applicant Information
+            br
+            #userInfoNone
+              small Please select a user.
+            #userInfo
+              h5 Name
+              p#userName User name
+              br
+              h5 Contact
+              h6 Phone
+              p#userPhone None
+              h6 Email
+              p#userEmail None
+              br
+              h5 Permenent Address
+              h6 Address
+              p#userAddr None
+              p#userAddr2 
+              .row
+                .col-xs-8.col-sm-8.col-md-8.col-lg-8
+                  h6 State
+                  p#userState 
+                .col-xs-4.col-sm-4.col-md-4.col-lg-4
+                  h6 Zip
+                  p#userZip 
+              br
+              hr
+              button#approve.btn.btn-lg.btn-warning.pull-right(type='submit', value='approve', style='width:40%;') Approve
+              button#decline.btn.btn-lg.btn-danger.pull-left(type='submit', value='decline', style='width:40%;') Decline
+              br

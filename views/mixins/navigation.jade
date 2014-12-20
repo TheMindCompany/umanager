@@ -1,0 +1,384 @@
+mixin userHeader()
+  .row
+    .media
+      .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
+        if user.type == 'admin'
+          h5 Administrator User ID
+        else if user.type == 'student'
+          h5 Student User ID
+        else if user.type == 'teacher'
+          h5 Teacher User ID
+        else if user.type == 'applicant'
+          h5 Student Applicant User ID
+        small #{user.id}
+        hr
+        br        
+        i Please do not falsify information if you choose to provide it.
+  block
+
+mixin timeFrame(date, length)
+  p 
+    if date.getHours() > 12
+      | #{date.getHours() - 12}
+      if date.getMinutes() != 0
+        | :#{date.getMinutes()}PM 
+      else
+        | PM 
+    else
+      | #{date.getHours()}
+      if date.getMinutes() != 0
+        | :#{date.getMinutes()}AM 
+      else
+        | AM 
+    - var endClass = date;
+    - endClass.setMinutes(endClass.getMinutes() + length);
+    if endClass.getHours()  > 12
+      | to #{endClass.getHours() - 12}
+      if endClass.getMinutes() != 0
+        | :#{endClass.getMinutes()}PM
+      else
+        | PM
+    else
+      | to #{endClass.getHours()}
+      if endClass.getMinutes() != 0
+        | :#{endClass.getMinutes()}AM
+      else
+        | AM
+
+mixin idField(name, id)
+  if id != undefined
+    input.form-control(name=name + 'Id', type='hidden', value=id)
+
+mixin userNameFields(data)
+  - data = data ? data : {first: '', last: ''};
+  +idField('detail', data.detail.id)
+  #user-name.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.in.active(style='margin:0px;padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      h5
+        b Real Name
+    .col-xs-12.col-sm-12.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon First &nbsp; &nbsp;
+        input.form-control(name='first', type='input', value=data.first)
+      br
+    .col-xs-12.col-sm-12.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon Last &nbsp; &nbsp;
+        input.form-control(name='last', type='input', value=data.last)
+      br
+    
+
+mixin navItem(target, title)
+  li
+    a(href=target) #{title}
+    
+mixin adminNav()
+  li.dropdown-header Administrator Menu
+  li.divider
+  +navItem('/account', 'My Profile')
+  li.divider
+  li.dropdown-header Management
+  +navItem('/credentials/manage/applications', 'Manage Applications')
+  block adminNav
+  
+mixin studentNav()
+  li.dropdown-header Student Menu
+  li.divider  
+  +navItem('/catalog/schedule', 'My Schedule')
+  +navItem('/account', 'My Profile')
+  +navItem('/student/history', 'Transcript')
+  li.divider  
+  li.dropdown-header Course Management
+  +navItem('/student/add', 'Add Course')
+  +navItem('/student/drop', 'Drop Course')
+  block studentNav
+    
+mixin teacherNav()
+  li.dropdown-header Teacher Menu
+  li.divider  
+  +navItem('/catalog/schedule', 'My Schedule')
+  +navItem('/account', 'My Profile')
+  li.divider
+  li.dropdown-header Manage Students
+  +navItem('/student/history', 'Student History')
+  +navItem('/student/drop', 'Drop Student')
+  block teachNav
+
+mixin applicantNav()
+  li.dropdown-header Student Applicant
+  if user.active == 'true'
+    +navItem('#status-pending', 'Application processing...')
+  else  
+    +navItem('#status-pending', 'Application DECLINED')
+  +navItem('/account', 'My Profile')
+  
+div(class='modal fade', id='login-form', tabindex='-1', role='dialog', aria-labelledby='loginLabel', aria-hidden='true')
+  div(class='modal-dialog modal-sm')
+    div(class='modal-content')
+      form(role='form', method='POST', action='/credentials', id='loginForm')
+        div(class='modal-header')
+          button(type='button', class='close', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span(class='sr-only') Close
+          h4(class='modal-title', id='registerLabel') Sign In
+        div(class='modal-body')
+          div(class='input-group')
+            div(class='input-group-addon') User Email
+            input.form-control(name='user', placeholder='', type='email', required, autofocus)
+          br
+          div(class='input-group')
+            div(class='input-group-addon') Password &nbsp;
+            input.form-control(name='password', placeholder='', type='password', required)
+          if (error) 
+            div(class='alert alert-warning alert-dismissible' role='alert')
+              button(type='button', class='close', data-dismiss='alert')
+                span(aria-hidden='true') &times;
+                span(class='sr-only') Close
+              strong Warning!
+              p Invalid user email or password! You Need to get this sorted out!
+          .input-group
+            div(class='checkbox', style='margin-left: 22px; margin-bottom: 0px;')
+              input(type='checkbox', name='remember')
+              | Remember me
+        div(class='modal-footer')
+          button(type='submit', class='btn btn-lg btn-block btn-warning') Submit
+
+mixin signIn()
+  a(href='#', role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form') Sign In
+  
+  
+mixin userDetail(data)
+  - data = data.gender || data.birth ? data : {birth: new Date(), gender: ''}; 
+  #user-detail.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.in.active(style='margin:0px;padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      h5
+        b Personal Details
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon Born &nbsp; &nbsp;
+        input.form-control(name='birth', type='date', value=data.birth.toISOString().substr( 0, 10 ))
+      br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon Gender
+        select.form-control(name='gender')
+          option(value='decline') Decline
+          option(value='male') Male
+          option(value='female') Female
+          option(value='trans') Transgender
+          option(value='uni') Unisex
+      br
+
+mixin contactPhone(data)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0px;')
+    if data.type != 'home' && data.type != 'mobile'
+      .col-xs-8.col-sm-8.col-md-9.col-lg-9(style='padding-left:0px;')
+        .input-group
+          .input-group-addon Phone &nbsp;&nbsp;
+          input.form-control(name='phone' + data.type, type='tel', value=data.phone)  
+        br
+    else
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;padding-right:0px;')
+        .input-group
+          .input-group-addon Phone &nbsp;&nbsp;
+          input.form-control(name='phone' + data.type, type='tel', value=data.phone)  
+        br
+    if data.type != 'home' && data.type != 'mobile'
+      .col-xs-4.col-sm-4.col-md-3.col-lg-3(style='padding-right:0px;')
+        .input-group 
+          .input-group-addon Ext.
+          input.form-control(name='ext' + data.type, type='input', value=data.ext)  
+        br
+        
+mixin contactAddress(data)
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-left:0px;')
+      .input-group
+        .input-group-addon Address 1
+        input.form-control(name='addr' + data.type, type='input', value=data.addr)
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-left:0px;')
+      .input-group
+        .input-group-addon Address 2
+        input.form-control(name='addr_2' + data.type, type='input', value=data.addr_2)
+      br
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-right:0px;')
+      .input-group
+        .input-group-addon City &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; 
+        input.form-control(name='city' + data.type, type='input', value=data.city)
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding-left(style='padding-right:0px;')
+      .col-xs-6.col-sm-6.col-md-6.col-lg-5(style='padding-left:0px;')
+        .input-group
+          .input-group-addon State 
+          select.form-control(name='state' + data.type)
+            option 
+            option(value='AL') AL
+            option(value='AK') AK
+            option(value='AZ') AZ
+            option(value='AR') AR
+            option(value='CA') CA
+            option(value='CO') CO
+            option(value='CT') CT
+            option(value='DE') DE
+            option(value='DC') DC
+            option(value='FL') FL
+            option(value='GA') GA
+            option(value='HI') HI
+            option(value='ID') ID
+            option(value='IL') IL
+            option(value='IN') IN
+            option(value='IA') IA
+            option(value='KS') KS
+            option(value='KY') KY
+            option(value='LA') LA
+            option(value='ME') ME
+            option(value='MD') MD
+            option(value='MA') MA
+            option(value='MI') MI
+            option(value='MN') MN
+            option(value='MS') MS
+            option(value='MO') MO
+            option(value='MT') MT
+            option(value='NE') NE
+            option(value='NV') NV
+            option(value='NH') NH
+            option(value='NJ') NJ
+            option(value='NM') NM
+            option(value='NY') NY
+            option(value='NC') NC
+            option(value='ND') ND
+            option(value='OH') OH
+            option(value='OK') OK
+            option(value='OR') OR
+            option(value='PA') PA
+            option(value='RI') RI
+            option(value='SC') SC
+            option(value='SD') SD
+            option(value='TN') TN
+            option(value='TX') TX
+            option(value='UT') UT
+            option(value='VT') VT
+            option(value='VA') VA
+            option(value='WA') WA
+            option(value='WV') WV
+            option(value='WI') WI
+            option(value='WY') WY
+        br
+      .col-xs-6.col-sm-6.col-md-6.col-lg-7(style='padding-right:0px;')
+        .input-group
+          .input-group-addon Zip 
+          input.form-control(name='zip' + data.type, type='input', value=data.zip)
+        br
+  
+
+mixin homeContactFields(data)
+  #contact-home.tab-pane.fade.in.active(role='tabpanel')
+    +idField(data.type, data.id)
+    h6 Mailing
+    +contactAddress(data)
+    h6 Telephone
+    +contactPhone(data)
+
+mixin userContact(data)
+  - var contactObj = function(type){return {type:type, addr:'', addr_2:'', city:'', state:'', zip:'', phone:'', carrier:'', ext:''};};
+  - data = data ? data : [contactObj('home')];
+  #user-contact.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.in.active(role='tablist')
+    h5
+      b Contacts 
+    ul.nav.nav-tabs
+      li.active(role='presentation')
+        a(href='#contact-home', aria-controls='Home Contact', role='tab', data-toggle='tab') Home
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.tab-content(style='padding-top:10px;')
+      for i in data
+        if i.type == 'home'
+          +homeContactFields(i)        
+  
+mixin registerAcceptButtons()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .col-xs-5.col-sm-6.col-md-8.col-lg-8
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .checkbox.pull-left
+          input(type='checkbox', name='agree')
+          | I 
+          u agree
+          |  to 
+          a(href='#') Terms.
+    .col-xs-7.col-sm-6.col-md-4.col-lg-4(style='padding:0px;')
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 10px 0px 0px;')
+        button.btn.btn-lg.btn-default.pull-right(type='button', data-dismiss='modal', style='width:100%;') Cancel
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 0px 0px 10px;')
+        button.btn.btn-lg.btn-warning.pull-right(type='submit', style='width:100%;') Register
+  
+mixin adminProfileOptions()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    hr
+    br
+    h4(style="margin-top:0px;") Administration Only
+    input.form-control(type='hidden', name='userId', value=user.user.id) 
+    h6
+      b User Account Options
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    .col-xs-2.col-sm-2.col-md-2.col-lg-1              
+      .checkbox(style='margin-left:20px;')
+        if user.user.active == 'true'
+          input(type='checkbox', name='auth_active', checked) 
+        else
+          input(type='checkbox', name='auth_active') 
+        | Active
+      br
+      br
+    .col-xs-10.col-sm-10.col-md-10.col-lg-11
+      .input-group
+        .input-group-addon User Type
+        select.form-control(name='auth_type')
+          option(value='user') User
+          option(value='admin') Admin
+      br
+      br
+mixin saveEdits()
+  br
+  hr
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    button.btn.btn-primary.btn-lg.pull-right(type='submit') Save 
+    button.btn.btn-default.btn-lg.pull-right(type='reset', style='margin-right: 10px;') Undo 
+     
+mixin FeaturesAd()       
+  #carousel-example-generic.carousel.slide(data-ride="carousel")
+    a(href="https://github.com/BClark-Grad-Project/CP546")
+      img(style="position: absolute; z-index: 1000; top: 0; left: 0; border: 0;", src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67", alt="Fork me on GitHub", data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png")
+    ol.carousel-indicators
+      li.active(data-target="#carousel-example-generic", data-slide-to="0")
+      li(data-target="#carousel-example-generic", data-slide-to="1")
+      li(data-target="#carousel-example-generic", data-slide-to="2")
+      li(data-target="#carousel-example-generic", data-slide-to="3")
+    .carousel-inner(role="listbox", style='border-radius:15px;')
+      .item.active(style='border-radius:15px;')
+        img(src='/images/1.png', style='min-height: 300px;max-height: 300px;width: 100%;')
+        .container
+          .carousel-caption
+            h1 University Manager
+            h5 Try it today! 
+              a(href='/credentials/register') Register
+              | &nbsp;and 
+              a(href='#try') Demo
+              | !
+      .item
+        img(src='/images/1.png',style='min-height: 300px;max-height: 300px;width: 100%;')
+        .container
+          .carousel-caption
+            h1 Student Registration Management
+            h5 Students can register to attend University, add and drop courses that they have been approved. 
+      .item
+        img(src='/images/1.png',style='min-height: 300px;max-height: 300px;width: 100%;')
+        .container
+          .carousel-caption
+            h1 Teacher Management
+            h5 Teachers can drop students whom fail to meet course prerequisites.
+      .item
+        img(src='/images/1.png',style='min-height: 300px;max-height: 300px;width: 100%;')
+        .container
+          .carousel-caption
+            h1 User Management
+            h5 Administators approve or deny new student applications.

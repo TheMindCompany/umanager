@@ -1,0 +1,109 @@
+// Begin Jade template.
+extends layout
+- schedule = typeof(schedule) != 'undefined' ? schedule : { }
+
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+        p Welcome #{user.first}
+        p Current Date (note: need this to know restriction-cannot drop students after 2 weeks into class)
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h3 Drop Confirmation Page 
+        p  You are about to drop the following course, please confirm and click the confirm button to submit your request.
+          |You may click the "cancel" button anytime if you do not wish to drop this course. 
+        h3 Current Class Schedule (Fall 2014: Date: 8/26-12/15)
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          b Course 
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b SEC
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b CODE
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b TYPES
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b DAYS
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          b TIME
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b UNITS 
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          b LOC
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b INST
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p Art 101
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 1
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p A01
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p SEM
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p MW
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p 8-9:15AM
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p 3
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          p AR 101
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          p Phan,C
+
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        #accordion.panel-group
+          .panel.panel-default
+            .panel-heading
+              h2.panel-title
+                a(data-toggle="collapse", data-parent="#accordion", href="#collapseOne")
+                  | Students Only  
+            #collapseOne.panel-collapse.collapse
+              .panel-body
+              h5 Please review the courses above. Click "Confirm" to confirm. Click "cancel" if you do not want to drop the class.  
+              br 
+              .row
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                 if user.type == 'student'
+                  .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                    button.btn.btn-lg.btn-primary.pull-left.primary(type='button') Drop Courses
+                  .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                    button.btn.btn-lg.btn-primary.pull-left.primary(type='button') Cancel
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        #accordion.panel-group
+          .panel.panel-default
+            .panel-heading
+              h2.panel-title
+                a(data-toggle="collapse", data-parent="#accordion", href="#collapseTwo")
+                  | Teachers Only  
+            #collapseTwo.panel-collapse.collapse
+              .panel-body
+              h5 Please review the courses above. Click "Drop Students" to confirm. Click "cancel" if you do not want to drop the students from your course. 
+              p Please provide a reason why you drop these students from your class 
+              .input-group
+                .input-group-addon Comments
+                input.form-control(name='comments', placeholder='', type='input', required)  
+              br 
+              .row
+                if user.type == 'teacher'
+                  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                    .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                      button.btn.btn-lg.btn-primary.pull-left.primary(type='button') Drop Students
+                    .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                      button.btn.btn-lg.btn-primary.pull-left.primary(type='button') Cancel
+ // note should have a restriction -cannot drop after 2 weeks: need to prompt student to go to admission to drop course          
+    
+// End Jade Template

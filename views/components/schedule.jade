@@ -1,0 +1,103 @@
+// Begin Jade template.
+extends layout
+- schedule = typeof(schedule) != 'undefined' ? schedule : { }
+
+//-CSS is inserted in the HEAD tag.
+block css
+  link(href='/css/schedule.css')
+  
+//-JavaScript will be inserted at the end of the BODY tag.
+block js
+  script(src='/js/myschedule.js')
+  script(type='text/javascript').
+    var schedule = !{JSON.stringify(schedule)}
+  
+//-Add navigation item to existing navigation set.
+block nav
+  +navItem('#main','My schedule')
+  
+//-Add navigation item to existing Teacher navigation set.
+block navTeacher
+  
+//-Add navigation item to existing Student navigation set.
+block navStudent
+  
+//-HTML content to display.
+block content
+  - var currentClassList;
+  #student-list.modal.fade(tabindex="-1", role="dialog", aria-labelledby="teach-class-list-title", aria-hidden="true")
+    form(role='form', method='POST', name='teach-class-list')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type="button", data-dismiss="modal")
+              span(aria-hidden="true")
+                | &times;
+                span.sr-only Close
+            h4#student-list-title.modal-title -Class Code- -Class Name-
+          .modal-body
+            input.grab(type='hidden', name='grab')
+            select.form-control(name='teach-class-list', multiple, size='10')
+              option None
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") Close
+            button.dropListBtn.btn.btn-primary(type="button") Drop Student
+            button.viewHistoryListBtn.btn.btn-primary(type="button") View Class History
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+        p Student Name-Student ID 
+        h4 Current Schedule (Fall 2014:8/26-12/15)   
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          b COURSE 
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b TYPES
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b DAYS
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+          b TIME
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b UNITS 
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b LOC
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+            if(user.type =='student' || user.type == 'admin')
+              b Instructor
+            else
+              b
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1
+          b 
+      - var j = 0;
+      for i in schedule
+        br
+        .row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            .col-xs-2.col-sm-2.col-md-2.col-lg-2
+              p #{i.course.code}
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+              p SEM
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+              p MW
+            .col-xs-2.col-sm-2.col-md-2.col-lg-2
+              p #{i.schedule.start_time.getHours()}: #{i.schedule.start_time.getMinutes()}
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+              p 3
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+              p #{i.schedule.location}
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+                if(user.type =='student' || user.type == 'admin')
+                  p #{i.schedule.instructor} 
+                else
+                  p
+            .col-xs-1.col-sm-1.col-md-1.col-lg-1
+              if(user.type == 'student')
+                button.dropBtn.btn.btn-xs.btn-primary(type='button', value=i.id) Drop
+              else if(user.type=='teacher')
+                button.studentsBtn.btn.btn-xs.btn-primary(value=j, type='button',data-toggle="modal", data-target="#student-list") Roll
+            - j++; 
+// End Jade Template

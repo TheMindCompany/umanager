@@ -1,0 +1,102 @@
+// Begin Jade template.
+extends layout
+- schedule = typeof(schedule) != 'undefined' ? schedule : { }
+
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h2 Drop Summary 
+          if user.type == 'teacher'
+            | For Your Student 
+        h4 #{schedule.user.first} #{schedule.user.last} (ID: #{schedule.user._id})
+    br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12  
+        h3 #{schedule.session.code} Drop Detail 
+        br
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        if user.type == 'teacher'
+          .col-xs-2.col-sm-2.col-md-1.col-lg-2.hide-sm
+            b Course
+        else
+          .col-xs-2.col-sm-2.col-md-1.col-lg-1
+            b Course
+        if user.type == 'student'
+          .col-xs-0.col-sm-0.col-md-3.col-lg-3.hide-md
+            b Name
+        if(user.type =='student' || user.type == 'teacher')
+          .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm
+            b Types
+        else
+          .col-xs-4.col-sm-3.col-md-4.col-lg-4
+            b Name
+        .col-xs-2.col-sm-1.col-md-1.col-lg-1
+          b Days
+        .col-xs-2.col-sm-3.col-md-2.col-lg-2
+          b Time
+        if user.type == 'teacher'
+          .col-xs-2.col-sm-2.col-md-2.col-lg-1
+            b Location
+        else
+          .col-xs-2.col-sm-2.col-md-1.col-lg-1
+            b Location
+        if(user.type =='student')
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            b Instructor
+        else
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            b Student Name
+      br
+      hr
+    .row
+      br
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        if user.type == 'teacher'
+          .col-xs-2.col-sm-2.col-md-1.col-lg-2.hide-sm
+            small #{schedule.course.code}
+        else
+          .col-xs-2.col-sm-2.col-md-1.col-lg-1
+            small #{schedule.course.code}
+        if user.type == 'student'
+          .col-xs-0.col-sm-0.col-md-3.col-lg-3.hide-md
+            small #{schedule.course.name}
+        if(user.type =='student' || user.type == 'teacher')
+          .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm
+            small SEM
+        else
+          .col-xs-4.col-sm-3.col-md-4.col-lg-4
+            small #{schedule.course.name}
+        .col-xs-2.col-sm-1.col-md-1.col-lg-1
+          small #{getDays(schedule.schedule.daily)}
+        .col-xs-2.col-sm-3.col-md-2.col-lg-2
+          small
+            +timeFrame(schedule.schedule.start_time, schedule.schedule.min_length)
+        if user.type == 'teacher'
+          .col-xs-2.col-sm-2.col-md-2.col-lg-1
+            small #{schedule.schedule.location}
+        else
+          .col-xs-2.col-sm-2.col-md-1.col-lg-1
+            small #{schedule.schedule.location}
+        if(user.type =='student')
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            small #{schedule.course.instructor.first.charAt(0)}. #{schedule.course.instructor.last} 
+        else
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            small #{schedule.user.first.charAt(0)}. #{schedule.user.last} 
+    br    
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        form(action='/student/drop/complete', method='POST')
+          input.form-control(type='hidden', value=schedule.id, name='id')
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            h5 Reason for dropping?
+            textarea.form-control(type='textarea', name='reason')
+            br
+            br
+            br
+            button.btn.btn-lg.btn-warning.pull-right(type='submit') Confirm  
+            button.btn.btn-lg.pull-right.btn-default(type='button', style='margin-right:20px;', onClick="history.go(-1)") Cancel  

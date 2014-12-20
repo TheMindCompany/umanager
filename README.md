@@ -11,13 +11,13 @@ https://um.themindcompany.net
 #### Documentation
 Documentation regarding the framework and development of this software can be found:
 
-* [Install](https://github.com/TheMindCompany/umanager/docs/blob/master/install.md)
 * [Documentation](https://github.com/TheMindCompany/umanager/blob/master/docs/README.md)
+* [Install](https://github.com/TheMindCompany/umanager/blob/master/docs/install.md)
 * [FAQ](https://github.com/TheMindCompany/umanager/blob/master/docs/faq.md)
 * [Issue Tracker](https://github.com/TheMindCompany/umanager/issues)
 
 ####Contribute
-Please read through our [contributing guidelines](https://github.com/TheMindCompany/umanager/docs/blob/master/contribute.md). Included are directions for opening issues, coding standards, and notes on development.
+Please read through our [contributing guidelines](https://github.com/TheMindCompany/umanager/blob/master/docs/contribute.md). Included are directions for opening issues, coding standards, and notes on development.
 
 Moreover, if your pull request contains JavaScript patches or features, you must include relevant unit tests. All HTML and CSS should conform to the Code Guide, maintained in the `/doc` folder.
 

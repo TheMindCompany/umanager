@@ -1,9 +1,10 @@
 # University Manager
 An open-source development project for a cloud based university management software system.  This projects goal is to create a component based structure that allows small and large universities to quickly extend and implement.  Design practices focus on mobile & special needs accessibility with scalability in place.
 
-This project was derived from Brandon Clark, Christie Phan and Hooman Rezvani [team graduate project](https://github.com/BClark-Grad-Project/CP546).
-
 *Demo* | https://um.themindcompany.net 
+
+#### Background
+This project was written by Brandon Clark and Hooman Rezvani from a [project](https://github.com/BClark-Grad-Project/CP546) developed while earning their Master in Software Engineering at *California State Fullerton*.
 
 
 # Getting Started
@@ -15,12 +16,24 @@ Documentation regarding the framework and development of this software can be fo
 * [FAQ](https://github.com/TheMindCompany/umanager/blob/master/docs/faq.md)
 * [Issue Tracker](https://github.com/TheMindCompany/umanager/issues)
 
-####Contribute
+#### Contribute
 Please read through our [contributing guidelines](https://github.com/TheMindCompany/umanager/blob/master/docs/contribute.md). Included are directions for opening issues, coding standards, and notes on development.
 
 Moreover, if your pull request contains JavaScript patches or features, you must include relevant unit tests. All HTML and CSS should conform to the Code Guide, maintained in the `/doc` folder.
 
-#MIT License
+#### Related Projects
+**UManager Charm** | [https://github.com/TheMindCompany/umanager-charm](https://github.com/TheMindCompany/umanager-charm)
+* An Canonical OpenStack Juju Charm configuration for the UManager project.
+
+### Base Components
+* User
+** Profile Types
+** Authentication
+* School
+** Catalog
+** Campus
+
+# MIT License 
 Copyright (c) 2015 The Mind Company
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 

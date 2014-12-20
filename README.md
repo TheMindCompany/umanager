@@ -1,9 +1,7 @@
 # University Manager
 An open-source development project for a cloud based university management software system.  This projects goal is to create a component based structure that allows small and large universities to quickly extend and implement.  Design practices focus on mobile & special needs accessibility with scalability in place.
 
-This project was derived from Brandon Clark, Christie Phan and Hooman Rezvani team graduate project at:
-
-https://github.com/BClark-Grad-Project/CP546
+This project was derived from Brandon Clark, Christie Phan and Hooman Rezvani [team graduate project](https://github.com/BClark-Grad-Project/CP546).
 
 #### Demo:
 https://um.themindcompany.net 
@@ -11,9 +9,9 @@ https://um.themindcompany.net
 #### Documentation
 Documentation regarding the framework and development of this software can be found:
 
-* [Install](https://github.com/TheMindCompany/umanager/docs/install.md)
-* [Documentation](https://github.com/TheMindCompany/umanager/docs/README.md)
-* [FAQ](https://github.com/TheMindCompany/umanager/docs/faq.md)
+* [Install](https://github.com/TheMindCompany/umanager/docs/blob/master/install.md)
+* [Documentation](https://github.com/TheMindCompany/umanager/blob/master/docs/README.md)
+* [FAQ](https://github.com/TheMindCompany/umanager/blob/master/docs/faq.md)
 * [Issue Tracker](https://github.com/TheMindCompany/umanager/issues)
 
 #Contribute

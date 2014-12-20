@@ -24,16 +24,6 @@ Moreover, if your pull request contains JavaScript patches or features, you must
 ### Related Projects
 [UManager Charm](https://github.com/TheMindCompany/umanager-charm) | An Canonical OpenStack Juju Charm configuration for the UManager project.
 
-### Base Components
-User
-*This is used to manage user account types and authentication data.*
-  * Profile Types
-  * Authentication
-School
-*This is used to manage school and course related data.*
-  * Catalog
-  * Campus
-
 # MIT License 
 Copyright (c) 2015 The Mind Company
 
